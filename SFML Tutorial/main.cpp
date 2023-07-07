@@ -19,9 +19,14 @@ int main()
                     break;
             case sf::Event::Resized:
 
-                std::cout << " New window width:" << event.size.width << " New window height:" << event.size.height << std::endl;
-
+                //std::cout << "New window width:" << event.size.width << " New window height:" << event.size.height << std::endl;
+                printf("New window width: %i\nNew window height: %i\n", event.size.width, event.size.height);
                 break;
+            case sf::Event::TextEntered:
+            {
+                if (event.text.unicode < 128)
+                    printf("%c", event.text.unicode);
+            }
 
             }
            
