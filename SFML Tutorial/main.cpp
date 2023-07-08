@@ -5,8 +5,10 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(512, 512), "SFML Tutorial", sf::Style::Close | sf::Style::Resize);
     sf::RectangleShape player(sf::Vector2f(100.f, 100.f));
-    player.setFillColor(sf::Color::Red);
+    player.setPosition(206, 206);
     sf::Texture playerTexture;
+    playerTexture.loadFromFile("C:/Users/dylan/OneDrive/Pictures/Screenshot 2023-03-20 150247.png");
+    player.setTexture(&playerTexture);
 
     while (window.isOpen())
     {
