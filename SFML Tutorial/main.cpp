@@ -41,27 +41,17 @@ int main()
                     window.close();
             }
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
-                player.move(-1.f, 0.f);
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
-            {
-                player.move(1.f, 0.f);
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
-            {
-                player.move(0.f, -1.f);
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
-            {
-                player.move(0.0f, 1.f);
+                sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                player.setPosition((float)mousePosition.x-50.f,static_cast<float>(mousePosition.y-50.f));
             }
            
         }
 
         window.clear();
         window.draw(player);
+   
         window.display();
     }
 
