@@ -11,6 +11,8 @@ class Player
 	  void Update(float DeltaTime);
 	  void Draw(sf::RenderWindow& window);
 
+	  sf::Vector2f GetPosition() { return body.getPosition(); }
+
 private:
 	sf::RectangleShape body;
 	float speed;

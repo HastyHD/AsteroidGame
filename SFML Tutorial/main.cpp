@@ -2,6 +2,14 @@
 #include <iostream>
 #include "Player.h"
 
+static const float VIEW_HEIGHT = 512.0f;
+
+void ResizeView(const sf::RenderWindow& window, sf::View& view)
+{
+    float aspectRatio = float(window.getSize().x) / float(window.getSize().y);
+    view.setSize(VIEW_HEIGHT * aspectRatio, VIEW_HEIGHT);
+}
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(512, 512), "SFML Tutorial", sf::Style::Close | sf::Style::Resize);
@@ -13,7 +21,7 @@ int main()
 
     float deltaTime = 0.0f;
     sf::Clock clock;
-    printf("hello");
+
     while (window.isOpen())
     {
         deltaTime = clock.restart().asSeconds();
@@ -27,11 +35,17 @@ int main()
             case sf::Event::Closed:
                 window.close();
                 break;
+            case sf::Event::Resized:
+                ResizeView(window, view);
+                break;
             }
 
             
         }
-        player.Update(deltaTime);
+    
+    player.Update(deltaTime);
+    view.setCenter(player.GetPosition());
+    
     window.clear(sf::Color(150,150,150));
     window.setView(view);
     player.Draw(window);
