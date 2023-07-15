@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "Player.h"
+#include "Obstacle.h"
 
 static const float VIEW_HEIGHT = 512.0f;
 
@@ -18,6 +19,10 @@ int main()
     playerTexture.loadFromFile("C:/Users/dylan/OneDrive/Pictures/Screenshot 2023-03-20 150247.png");
 
     Player player(&playerTexture, 0.3f, 100.0f);
+
+    Obstacle obstacle1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
+    Obstacle obstacle2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 0.0f));
+
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -44,11 +49,18 @@ int main()
         }
     
     player.Update(deltaTime);
+
+    obstacle1.GetCollision().CheckCollision(player.GetCollision(), 0.0f);
+    obstacle2.GetCollision().CheckCollision(player.GetCollision(), 1.0f);
+
     view.setCenter(player.GetPosition());
+    
     
     window.clear(sf::Color(150,150,150));
     window.setView(view);
     player.Draw(window);
+    obstacle1.Draw(window);
+    obstacle2.Draw(window);
     window.display();
     } 
         return 0;
