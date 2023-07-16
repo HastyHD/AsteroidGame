@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <vector>
 #include "Player.h"
 #include "Obstacle.h"
 
@@ -18,10 +19,17 @@ int main()
     sf::Texture playerTexture;
     playerTexture.loadFromFile("C:/Users/dylan/OneDrive/Pictures/Screenshot 2023-03-20 150247.png");
 
-    Player player(&playerTexture, 0.3f, 100.0f);
+    Player player(&playerTexture, 0.3f, 100.0f,200.0f);
 
-    Obstacle obstacle1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
-    Obstacle obstacle2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 0.0f));
+    std::vector<Obstacle> obstacles;
+
+    obstacles.push_back(Obstacle(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f)));
+    obstacles.push_back(Obstacle(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 0.0f)));
+    obstacles.push_back(Obstacle(nullptr, sf::Vector2f(1000.0f, 200.0f), sf::Vector2f(500.0f, 500.0f)));
+
+    //Obstacle obstacle1(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 200.0f));
+    //Obstacle obstacle2(nullptr, sf::Vector2f(400.0f, 200.0f), sf::Vector2f(500.0f, 0.0f));
+    //Obstacle ground(nullptr, sf::Vector2f(1000.0f, 200.0f), sf::Vector2f(500.0f, 500.0f));
 
 
     float deltaTime = 0.0f;
@@ -49,18 +57,29 @@ int main()
         }
     
     player.Update(deltaTime);
+    
+    sf::Vector2f direction;
 
-    obstacle1.GetCollision().CheckCollision(player.GetCollision(), 0.0f);
-    obstacle2.GetCollision().CheckCollision(player.GetCollision(), 1.0f);
+    for( Obstacle& obstacle : obstacles)
+        if(obstacle.GetCollision().CheckCollision(player.GetCollision(),direction, 1.0f))
+            player.OnCollision(direction);
 
-    //view.setCenter(player.GetPosition());
+    //obstacle1.GetCollision().CheckCollision(player.GetCollision(), 0.0f);
+    //obstacle2.GetCollision().CheckCollision(player.GetCollision(), 1.0f);
+
+    view.setCenter(player.GetPosition());
     
     
     window.clear(sf::Color(150,150,150));
     window.setView(view);
     player.Draw(window);
-    obstacle1.Draw(window);
-    obstacle2.Draw(window);
+
+    for (Obstacle& obstacle : obstacles)
+        obstacle.Draw(window);
+
+    //obstacle1.Draw(window);
+    //obstacle2.Draw(window);
+
     window.display();
     } 
         return 0;

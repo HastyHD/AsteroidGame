@@ -10,12 +10,13 @@ Collision::~Collision()
 {
 }
 
-bool Collision::CheckCollision(Collision other, float push)
+bool Collision::CheckCollision(Collision other,sf::Vector2f& direction, float push)
 {
     sf::Vector2f otherPosition = other.GetPosition();
     sf::Vector2f otherHalfSize = other.GetHalfSize();
     sf::Vector2f thisPosition = GetPosition();
     sf::Vector2f thisHalfSize = GetHalfSize();
+
 
     float deltaX = otherPosition.x - thisPosition.x;
     float deltaY = otherPosition.y - thisPosition.y;
@@ -32,11 +33,17 @@ bool Collision::CheckCollision(Collision other, float push)
             {
                 Move(intersectionX * (1.0f - push), 0.0f);
                 other.Move(-intersectionX * push, 0.0f);
+
+                direction.x = 1.0f;
+                direction.y = 0.0f;
             }
             else
             {
                 Move(-intersectionX * (1.0f - push), 0.0f);
                 other.Move(intersectionX * push, 0.0f);
+
+                direction.x = -1.0f;
+                direction.y = 0.0f;
             }
         }
         else
@@ -45,18 +52,24 @@ bool Collision::CheckCollision(Collision other, float push)
             {
                 Move(0.0f, intersectionY * (1.0f - push));
                 other.Move(0.0f, -intersectionY * push);
+
+                direction.x = 0.0f;
+                direction.y = 1.0f;
             }
             else
             {
                 Move(0.0f, -intersectionY * (1.0f - push));
                 other.Move(0.0f, intersectionY * push);
+                
+                direction.x = 0.0f;
+                direction.y = -1.0f;
             }
         }
 
         return true;
     }
 
-    printf("no");
+   
     return false;
 }
 
