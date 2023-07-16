@@ -14,7 +14,7 @@ void ResizeView(const sf::RenderWindow& window, sf::View& view)
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(512, 512), "SFML Tutorial", sf::Style::Close | sf::Style::Resize);
-    sf::View view(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(512.0f, 512.0f));
+    sf::View view(sf::Vector2f(200.0f, 100.0f), sf::Vector2f(512.0f, 512.0f));
     sf::Texture playerTexture;
     playerTexture.loadFromFile("C:/Users/dylan/OneDrive/Pictures/Screenshot 2023-03-20 150247.png");
 
@@ -53,7 +53,7 @@ int main()
     obstacle1.GetCollision().CheckCollision(player.GetCollision(), 0.0f);
     obstacle2.GetCollision().CheckCollision(player.GetCollision(), 1.0f);
 
-    view.setCenter(player.GetPosition());
+    //view.setCenter(player.GetPosition());
     
     
     window.clear(sf::Color(150,150,150));

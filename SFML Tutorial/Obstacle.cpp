@@ -4,8 +4,8 @@
 Obstacle::Obstacle(sf::Texture* texture, sf::Vector2f size, sf::Vector2f position)
 {
 	body.setTexture(texture);
-	body.setOrigin(size / 2.0f);
 	body.setSize(size);
+	body.setOrigin(size / 2.0f);
 	body.setPosition(position);
 }
 
