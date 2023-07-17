@@ -6,6 +6,7 @@
 class Player
 {
   public:
+	  bool canJump;
 	  Player(sf::Texture* texture, float switchTime, float speed, float jumpHeight);
 	  ~Player();
 
@@ -21,7 +22,7 @@ private:
 	float speed;
 	bool faceRight;
 	sf::Vector2f velocity;
-	bool canJump;
+	
 	float jumpHeight;
 };
 
