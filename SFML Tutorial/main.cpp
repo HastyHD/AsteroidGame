@@ -38,6 +38,8 @@ int main()
     while (window.isOpen())
     {
         deltaTime = clock.restart().asSeconds();
+        if (deltaTime > 1.0f / 60)
+            deltaTime = 1.0f / 60;
        
   
         sf::Event event;
@@ -64,8 +66,7 @@ int main()
         if(obstacle.GetCollision().CheckCollision(player.GetCollision(),direction, 1.0f))
             player.OnCollision(direction);
 
-    //obstacle1.GetCollision().CheckCollision(player.GetCollision(), 0.0f);
-    //obstacle2.GetCollision().CheckCollision(player.GetCollision(), 1.0f);
+
 
     view.setCenter(player.GetPosition());
     
@@ -77,8 +78,7 @@ int main()
     for (Obstacle& obstacle : obstacles)
         obstacle.Draw(window);
 
-    //obstacle1.Draw(window);
-    //obstacle2.Draw(window);
+ 
 
     window.display();
     } 
